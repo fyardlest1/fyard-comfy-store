@@ -29,9 +29,29 @@ export const addToCart = (id) => {
   else {
     // update values
   }
+  // add one to the item count
+  displayCartItemCount()
+  // display cart totals
+  displayCartTotals()
+  // set cart in localStorage
+  setStorageItem('cart', cart)
   // more stuff
   openCart()
 };
+
+function displayCartItemCount() {
+  const amount = cart.reduce((total, cartItem) => {
+    return total += cartItem.amount
+  }, 0)
+  cartItemCountDOM.textContent = amount
+}
+
+function displayCartTotals() {
+  let total = cart.reduce((total, cartItem) => {
+    return total += cartItem.price * cartItem.amount
+  }, 0)
+  cartTotalDOM.textContent = `Total : ${formatPrice(total)}`
+}
 
 const init = () => {
   //
